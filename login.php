@@ -5,13 +5,17 @@ $name = "";
 $password = "";
 $message = "";
 $message_color = "";
+if (isset($_SESSION['online']))
+    header("location:index.php");
 if ($_POST) {
     $name = $_POST['name'];
     $password = $_POST['password'];
     $query = "SELECT * FROM user WHERE name = '$name' AND password = '$password'";
     $result = mysqli_query($conexion, $query);
-    if (mysqli_num_rows($result) == 0) {
-        $_SESSION['online'] = "";
+    if (mysqli_num_rows($result) >= 1) {
+        $row = mysqli_fetch_array($result);
+        $_SESSION['online'] = ucwords($name);
+        $_SESSION['rol'] = $row['rol'];
         $_SESSION['message'] = "Welcome " . $_POST['name'];
         $_SESSION['message_color'] = "success";
         header("location:index.php");
@@ -20,7 +24,7 @@ if ($_POST) {
         $message_color = "danger";
     }
 } else {
-    if (isset($_SESSION['message'])) {
+    if (!empty($_SESSION['message'])) {
         $message = $_SESSION['message'];
         $message_color = $_SESSION['message_color'];
     }
@@ -63,6 +67,7 @@ if ($_POST) {
                             Name: <input type="text" name="name" class="form-control form-control-sm" placeholder="Your Name..." autofocus> <br>
                             Password: <input type="password" name="password" class="form-control form-control-sm" placeholder="Your Password"> <br>
                             <input type="submit" value="Login" class="btn btn-success btn-sm">
+                            <a href="singup.php" class="btn btn-secondary btn-sm">SingUp</a>
                         </form>
                         <!-- Fin Inputs -->
                     </div>

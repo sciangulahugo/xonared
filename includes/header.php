@@ -1,5 +1,7 @@
 <?php
 session_start();
+if (!isset($_SESSION['online']))
+header("location:login.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,5 +25,22 @@ session_start();
     <body>
 <!-- Container -->
         <div class="container">
+            <nav class="nav bg-light nav-tabs justify-content-center">
+                <a href="" class="nav-link">Home</a>
+                <!-- Verificacion de users --> 
+                <?php if ($_SESSION['rol'] == 1) { ?>
+                    <a href="#" class="nav-link">Admin</a>
+                <?php } ?>
+                <!-- Fin verificacion de users --> 
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?= $_SESSION['online']?></a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">My Account</a></li>
+                <li><a class="dropdown-item" href="#">Setting</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="logout.php">LogOut</a></li>
+                </ul>
+            </li>
+            </nav>
     
 

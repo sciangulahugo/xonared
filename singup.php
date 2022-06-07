@@ -3,6 +3,8 @@ require("db.php");
 session_start();
 $name = "";
 $password = "";
+if (isset($_SESSION['online']))
+    header("location:index.php");
 if ($_POST) {
     $name = $_POST['name'];
     $query = "SELECT * FROM user WHERE name = '$name'";
@@ -55,10 +57,11 @@ if ($_POST) {
                     <div class="card-body">
                         <!-- Inputs -->
                         <form action="singup.php" method="post">
-                            Name: <input type="text" name="name" class="form-control form-control-sm" placeholder="Your Name..."> <br>
-                            Password: <input type="password" name="password" class="form-control form-control-sm" placeholder="Your Password..."> <br>
-                            Repeat Password: <input type="password" name="repeat_password" class="form-control form-control-sm" placeholder="Repeat your password"> <br>
+                            Name: <input type="text" name="name" value="<?=$name;?>" class="form-control form-control-sm" placeholder="Your Name..." autofocus required> <br>
+                            Password: <input type="password" name="password" class="form-control form-control-sm" placeholder="Your Password..." required> <br>
+                            Repeat Password: <input type="password" name="repeat_password" class="form-control form-control-sm" placeholder="Repeat your password" required> <br>
                             <input type="submit" value="SingUp" class="btn btn-success btn-sm">
+                            <a href="login.php" class="btn btn-secondary btn-sm">Login</a>
                         </form>
                         <!-- Fin Inputs -->
                     </div>
