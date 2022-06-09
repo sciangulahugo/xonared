@@ -1,5 +1,6 @@
 <?php
 include("../config/db.php");
+//comentario
 if ($_GET) {
     $id = $_GET['id'];
     $option_name = $_POST['name_option'];
