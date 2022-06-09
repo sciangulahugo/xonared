@@ -25,11 +25,11 @@ header("location:login.php");
     <body>
 <!-- Container -->
         <div class="container">
-            <nav class="nav bg-light nav-tabs justify-content-center">
+            <nav class="nav mt-2 bg-light nav-tabs justify-content-center">
                 <a href="" class="nav-link">Home</a>
                 <!-- Verificacion de users --> 
                 <?php if ($_SESSION['rol'] == 1) { ?>
-                    <a href="#" class="nav-link">Admin</a>
+                    <a href="admin/views/dashboard.php" class="nav-link">Admin</a>
                 <?php } ?>
                 <!-- Fin verificacion de users --> 
                 <li class="nav-item dropdown">
