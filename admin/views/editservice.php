@@ -1,5 +1,6 @@
 <?php
-include("header.php");
+include("../includes/header.php");
+include("../views/private.php");
 include("../config/db.php");
 $name = "";
 $price = "";
@@ -11,6 +12,7 @@ if (isset($_GET['id'])) {
     if (mysqli_num_rows($result) >= 1) {
         $row = mysqli_fetch_array($result);
         $name = $row['name'];
+        $description = $row['description'];
         $price = $row['price'];
         $type = $row['type'];
     }
@@ -18,9 +20,10 @@ if (isset($_GET['id'])) {
 if ($_POST) {
     $id = $_GET['id'];  
     $name = $_POST['name'];
+    $description = $_POST['description'];
     $price = $_POST['price'];
     $type = $_POST['type'];
-    $query = "UPDATE services SET name = '$name', price = $price, type = $type WHERE id = $id";
+    $query = "UPDATE services SET name = '$name', description = '$description', price = $price, type = $type WHERE id = $id";
     mysqli_query($conexion, $query);
 }
 ?>
@@ -34,6 +37,7 @@ if ($_POST) {
             <div class="card-body">
                 <form action="editservice.php?id=<?= $id;?>" method="post">
                     Service name: <input type="text" value="<?= $name;?>" name="name" class="form-control form-control-sm" placeholder="Service name..."><br>
+                    Service description: <textarea name="description" class="form-control"><?= $description;?></textarea> <br>
                     Service price: <input type="text" value="<?= $price;?>" name="price" class="form-control form-control-sm"> <br>
                     Service type: <input type="number" value="<?= $type?>" name="type" class="form-control form-control-sm"> <br>
                     <input type="submit" value="Update" class="btn btn-success btn-sm">
@@ -102,5 +106,5 @@ if ($_POST) {
 </div>
 
 <?php
-include("footer.php");
+include("../includes/footer.php");
 ?>

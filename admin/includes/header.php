@@ -1,7 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['online']))
-header("location:login.php");
+if (!isset($_SESSION['online'])) {
+    $location = "location:../views/login.php";
+    header($location);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,24 +23,26 @@ header("location:login.php");
             integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     </head>
     <body>
 <!-- Container -->
         <div class="container">
             <nav class="nav mt-2 bg-light nav-tabs justify-content-center">
-                <a href="" class="nav-link">Home</a>
+                <a href="index.php" class="nav-link">Home</a>
                 <!-- Verificacion de users --> 
                 <?php if ($_SESSION['rol'] == 1) { ?>
-                    <a href="admin/views/dashboard.php" class="nav-link">Admin</a>
+                    <a href="../views/dashboard.php" class="nav-link">Dashboard</a>
                 <?php } ?>
                 <!-- Fin verificacion de users --> 
+                <a href="../views/myservices.php" class="nav-link">My Services</a>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?= $_SESSION['online']?></a>
                 <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">My Account</a></li>
-                <li><a class="dropdown-item" href="#">Setting</a></li>
+                <li><a class="dropdown-item" href="../views/myaccount.php">My Account</a></li>
+                <li><a class="dropdown-item" href="noaccess.php">Facturas</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="logout.php">LogOut</a></li>
+                <li><a class="dropdown-item" href="../views/logout.php">LogOut</a></li>
                 </ul>
             </li>
             </nav>

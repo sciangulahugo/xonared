@@ -1,42 +1,50 @@
 <?php
-require("db.php");
 session_start();
+require("../config/db.php");
 $name = "";
 $password = "";
+$message = "";
+$message_color = "";
 if (isset($_SESSION['online']))
     header("location:index.php");
 if ($_POST) {
     $name = $_POST['name'];
-    $query = "SELECT * FROM user WHERE name = '$name'";
+    $password = $_POST['password'];
+    $query = "SELECT * FROM user WHERE name = '$name' AND password = '$password'";
     $result = mysqli_query($conexion, $query);
     if (mysqli_num_rows($result) >= 1) {
-        $message = "That user already exist";
-        $message_color = "danger";
+        $row = mysqli_fetch_array($result);
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['online'] = ucwords($name);
+        $_SESSION['rol'] = $row['rol'];
+        $_SESSION['message'] = "Welcome " . $_POST['name'];
+        $_SESSION['message_color'] = "success";
+        header("location:index.php");
     } else {
-        if ($_POST['password'] != $_POST['repeat_password']) {
-            $message = "Password do not match";
-            $message_color = "warning";
-        } else {
-            $password = $_POST['password'];
-            $query = "INSERT INTO user (name, password) VALUES ('$name','$password')";
-            mysqli_query($conexion, $query);
-            $_SESSION['message'] = "Registered Successfully";
-            $_SESSION['message_color'] = "success";
-            header("location:login.php");
-        }
+        $message = "User or password incorrect";
+        $message_color = "danger";
+    }
+} else {
+    if (!empty($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        $message_color = $_SESSION['message_color'];
     }
 }
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
-    <title>Title</title>
+    <title>Login</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
+
 <body>
     <!-- Card -->
     <div class="container">
@@ -52,16 +60,15 @@ if ($_POST) {
                 <!-- Fin Aviso -->
                 <div class="card">
                     <div class="card-header">
-                        SingUp.
+                        Login.
                     </div>
                     <div class="card-body">
                         <!-- Inputs -->
-                        <form action="singup.php" method="post">
-                            Name: <input type="text" name="name" value="<?=$name;?>" class="form-control form-control-sm" placeholder="Your Name..." autofocus required> <br>
-                            Password: <input type="password" name="password" class="form-control form-control-sm" placeholder="Your Password..." required> <br>
-                            Repeat Password: <input type="password" name="repeat_password" class="form-control form-control-sm" placeholder="Repeat your password" required> <br>
-                            <input type="submit" value="SingUp" class="btn btn-success btn-sm">
-                            <a href="login.php" class="btn btn-secondary btn-sm">Login</a>
+                        <form action="login.php" method="post">
+                            Name: <input type="text" name="name" class="form-control form-control-sm" placeholder="Your Name..." autofocus> <br>
+                            Password: <input type="password" name="password" class="form-control form-control-sm" placeholder="Your Password"> <br>
+                            <input type="submit" value="Login" class="btn btn-success btn-sm">
+                            <a href="singup.php" class="btn btn-secondary btn-sm">SingUp</a>
                         </form>
                         <!-- Fin Inputs -->
                     </div>
@@ -72,7 +79,7 @@ if ($_POST) {
             </div>
         </div>
     </div>
-    <!-- Fin Card -->
+    <!-- Find Card -->
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 

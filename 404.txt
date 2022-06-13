@@ -1,0 +1,1 @@
+ErrorDocument 404 http://localhost/development/00_Inicio/00_Login/404.php
