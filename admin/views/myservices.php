@@ -34,7 +34,6 @@ if (mysqli_num_rows($result_user) >= 1) {
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Price</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -50,7 +49,6 @@ if (mysqli_num_rows($result_user) >= 1) {
                             <tr>
                                 <td><?= $row['name']; ?></td>
                                 <td><?= $row['description']; ?></td>
-                                <td><?= $row['price']; ?></td>
                                 <td>
                                     <?php
                                     if ($row_user['status'] == 1) {
@@ -64,37 +62,7 @@ if (mysqli_num_rows($result_user) >= 1) {
                                     <span class="badge bg-<?= $color; ?>"><?= $message; ?></span>
                                 </td>
                                 <td>
-                                    <!-- Edit Suscription -->
-                                    <button type="button" class="btn btn-primary btn-sm" style="--bs-btn-padding-y: .35em; --bs-btn-padding-x: .65em; --bs-btn-font-size: .50rem;" data-bs-toggle="modal" data-bs-target="#suscriptionModal<?= $id_service; ?>"><i class="bi bi-pencil"></i></button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="suscriptionModal<?= $id_service; ?>" tabindex="-1" aria-labelledby="suscriptionModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Suscription <?= $row['name']; ?></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <?= $row['description']; ?> <br>
-                                                    <p>Price <span class="badge bg-success">$<?= $row['price']; ?></span></p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                    <?php
-                                                    if ($row_user['status'] == 1) {
-                                                    ?>
-                                                        <a href="cancelsuscription.php?id=<?= $id_relation; ?>" class="btn btn-danger btn-sm">Cancel Suscription</a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <a href="resuscribe.php?id=<?= $id_relation; ?>" class="btn btn-success btn-sm">Suscribe</a>
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Fin Suscription -->
-
+                                    <a href="detailsservice.php?id_relation=<?= $id_relation; ?>" class="btn btn-primary btn-sm" style="--bs-btn-padding-y: .35em; --bs-btn-padding-x: .65em; --bs-btn-font-size: .50rem;"><i class="bi bi-pencil"></i></a>        
                                 </td>
                             </tr>
                     <?php

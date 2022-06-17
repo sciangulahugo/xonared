@@ -3,6 +3,7 @@ include("../includes/header.php");
 require("private.php");
 include("../config/db.php");
 if ($_POST) {
+    //print_r($_POST);
     $service_name = $_POST['service_name'];
     $service_description = $_POST['service_description'];
     $service_price = $_POST['service_price'];
@@ -22,8 +23,18 @@ if ($_POST) {
                 <form action="addservice.php" method="post">
                     Service Name: <input type="text" name="service_name" class="form-control form-control-sm" placeholder="Service name..."> <br>
                     Service Price: <input type="number" name="service_price" class="form-control form-control-sm" placeholder="Service price..."> <br>
-                    <textarea name="service_description" class="form-control" placeholder="Service description..."></textarea>
-                    Service Type: <input type="number" name="service_type" class="form-control form-control-sm" placeholder="Service type..."> <br>
+                    Service Description:
+                    <textarea name="service_description" class="form-control" placeholder="Service description..."></textarea><br>
+                    Service Type: <br>
+                    
+                    <input type="radio" class="btn-check" name="service_type" id="type_1" value="1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary btn-sm" for="type_1">Only service</label>
+
+                    <input type="radio" class="btn-check" name="service_type" id="type_2" value="2" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" for="type_2">Service with plans</label>
+
+                    <br>
+                    <hr>
                     <input type="submit" value="Save" class="btn btn-success btn-sm">
                 </form>
             </div>
