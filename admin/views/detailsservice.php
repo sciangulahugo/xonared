@@ -61,7 +61,28 @@ if (isset($_GET['id_relation'])) {
                     <?php } ?>
                 <?php } ?>
                 <?php if ($row_relation['status'] == 1) { ?>
-                    <a class="btn btn-danger btn-sm" href="cancelsuscription.php?id_relation=<?= $id_relation; ?>" role="button">Cancel Suscription</a>
+                    <!-- <a class="btn btn-danger btn-sm" href="cancelsuscription.php?id_relation=<?= $id_relation; ?>" role="button">Cancel Suscription</a> -->
+                    <!-- Inicio Modal -->
+                    <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .30rem;" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $id_relation;?>">Cancel Suscription</i></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal<?= $id_relation;?>" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="DeleteModalLabel">Cancel this service</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <a href="cancelsuscription.php?id_relation=<?= $id_relation; ?>" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i> Cancel service</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin Modal -->
                 <?php } else { ?>
                     <a class="btn btn-success btn-sm" href="resuscribe.php?id_relation=<?= $id_relation; ?>" role="button">Suscribe</a>
                 <?php } ?>
